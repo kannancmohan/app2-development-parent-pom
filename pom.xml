@@ -17,15 +17,61 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<java.version>22</java.version>
+		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+    	<maven.checkstyle.plugin.version>3.4.0</maven.checkstyle.plugin.version>
+		<checkstyle.version>10.17.0</checkstyle.version>
 	</properties>
 
 	<build>
 		<pluginManagement>
 			<plugins>
+				<!-- Java Compiler -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven.compiler.plugin.version}</version>
+					<configuration>
+						<release>${java.version}</release>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<!--  Google checkstyle using checkstyle plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven.checkstyle.plugin.version}</version>
+					<dependencies>
+						<!-- added to use new checkstyle version -->
+						<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>${checkstyle.version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+						<id>google-checkstyle</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<configLocation>google_checks.xml</configLocation>
+							<suppressionsLocation>supressions.xml</suppressionsLocation>
+							<inputEncoding>UTF-8</inputEncoding>
+							<failsOnError>true</failsOnError>
+							<consoleOutput>true</consoleOutput>
+							<violationSeverity>error</violationSeverity>
+						</configuration>
+						</execution>
+					</executions>
+				</plugin>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
-				</plugin>	
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>
