@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kcm.msp.dev</groupId>
 	<artifactId>app2-development-parent-pom</artifactId>
@@ -18,8 +19,8 @@
 		<revision>0.0.1-SNAPSHOT</revision>
 		<java.version>22</java.version>
 		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
-    	<maven.checkstyle.plugin.version>3.4.0</maven.checkstyle.plugin.version>
-		<checkstyle.version>10.17.0</checkstyle.version>
+		<maven.checkstyle.plugin.version>3.4.0</maven.checkstyle.plugin.version>
+		<puppycrawl.checkstyle.version>10.17.0</puppycrawl.checkstyle.version>
 	</properties>
 
 	<build>
@@ -36,7 +37,7 @@
 						<target>${java.version}</target>
 					</configuration>
 				</plugin>
-				<!--  Google checkstyle using checkstyle plugin -->
+				<!--  Google checkstyle using maven checkstyle plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
@@ -44,26 +45,26 @@
 					<dependencies>
 						<!-- added to use new checkstyle version -->
 						<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>${checkstyle.version}</version>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>${puppycrawl.checkstyle.version}</version>
 						</dependency>
 					</dependencies>
 					<executions>
 						<execution>
-						<id>google-checkstyle</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<configLocation>google_checks.xml</configLocation>
-							<suppressionsLocation>supressions.xml</suppressionsLocation>
-							<inputEncoding>UTF-8</inputEncoding>
-							<failsOnError>true</failsOnError>
-							<consoleOutput>true</consoleOutput>
-							<violationSeverity>error</violationSeverity>
-						</configuration>
+							<id>google-checkstyle</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+							<configuration>
+								<configLocation>google_checks.xml</configLocation>
+								<suppressionsLocation>supressions.xml</suppressionsLocation>
+								<inputEncoding>UTF-8</inputEncoding>
+								<failsOnError>true</failsOnError>
+								<consoleOutput>true</consoleOutput>
+								<violationSeverity>error</violationSeverity>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
