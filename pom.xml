@@ -18,11 +18,13 @@
 	<properties>
 		<revision>0.0.1-SNAPSHOT</revision>
 		<java.version>22</java.version>
-		<maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
-		<maven.checkstyle.plugin.version>3.4.0</maven.checkstyle.plugin.version>
-		<puppycrawl.checkstyle.version>10.17.0</puppycrawl.checkstyle.version>
-		<maven.resource.plugin.version>3.3.1</maven.resource.plugin.version>
-		<exec.maven.plugin.version>3.3.0</exec.maven.plugin.version>
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<maven-checkstyle-plugin.version>3.4.0</maven-checkstyle-plugin.version>
+		<puppycrawl-checkstyle.version>10.17.0</puppycrawl-checkstyle.version>
+		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+		<exec-maven-plugin.version>3.3.0</exec-maven-plugin.version>
+		<spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
+		<spotbugs.version>4.8.6</spotbugs.version>
 	</properties>
 
 	<build>
@@ -32,7 +34,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven.compiler.plugin.version}</version>
+					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
 						<release>${java.version}</release>
 						<source>${java.version}</source>
@@ -43,12 +45,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${maven.checkstyle.plugin.version}</version>
+					<version>${maven-checkstyle-plugin.version}</version>
 					<dependencies>
 						<dependency>
 							<groupId>com.puppycrawl.tools</groupId>
 							<artifactId>checkstyle</artifactId>
-							<version>${puppycrawl.checkstyle.version}</version>
+							<version>${puppycrawl-checkstyle.version}</version>
 						</dependency>
 					</dependencies>
 					<executions>
@@ -73,7 +75,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>${maven.resource.plugin.version}</version>
+					<version>${maven-resources-plugin.version}</version>
 					<executions>
 						<execution>
 							<id>copy-hooks</id>
@@ -99,7 +101,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
-					<version>${exec.maven.plugin.version}</version>
+					<version>${exec-maven-plugin.version}</version>
 					<executions>
 						<execution>
 							<id>make-hooks-executable</id>
@@ -115,6 +117,39 @@
 									<argument>${basedir}/.git/hooks/pre-commit</argument>
 								</arguments>
 							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- spotbugs plugin -->
+				<plugin>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>${spotbugs-maven-plugin.version}</version>
+					<dependencies>
+						<!-- overwrite if you want to specify the version of spotbugs -->
+						<dependency>
+							<groupId>com.github.spotbugs</groupId>
+							<artifactId>spotbugs</artifactId>
+							<version>${spotbugs.version}</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<skip>${spotbugs.skip}</skip>
+						<failOnError>true</failOnError>
+						<!-- threshold values Low,Medium,High -->
+						<threshold>High</threshold>
+						<!-- TODO remove FindDeadLocalStores after ignoring spotbugs check on
+						generated classes -->
+						<!-- to disable bug detector. -->
+						<omitVisitors>FindDeadLocalStores</omitVisitors>
+					</configuration>
+					<executions>
+						<execution>
+							<id>spotbugs-check</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
 						</execution>
 					</executions>
 				</plugin>
