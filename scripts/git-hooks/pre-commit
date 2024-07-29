@@ -2,6 +2,17 @@
 #
 # Pre-commit hook to run Checkstyle
 #
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+info_message() {
+    echo "${BLUE}Info: ${1}${NC}"
+}
+
+# Check if there are staged changes
+if git diff --cached --quiet; then
+    info_message "No staged changes to commit"
+    exit 0
+fi
 
 # Run Checkstyle
 mvn checkstyle:check
