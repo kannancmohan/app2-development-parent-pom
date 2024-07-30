@@ -38,7 +38,8 @@
 		<generate-openapi-server-code.skip>false</generate-openapi-server-code.skip>
 		<generate-openapi-client-code.skip>false</generate-openapi-client-code.skip>
 		<generate-openapi-client-code.library>resttemplate</generate-openapi-client-code.library>
-		<generate-openapi-client-code.inputSpec>${project.basedir}/src/main/resources/static/openapi/openapi.yaml</generate-openapi-client-code.inputSpec>	
+		<generate-openapi-client-code.inputSpec>
+			${project.basedir}/src/main/resources/static/openapi/openapi.yaml</generate-openapi-client-code.inputSpec>
 	</properties>
 
 	<dependencyManagement>
@@ -88,6 +89,14 @@
 							<version>${puppycrawl-checkstyle.version}</version>
 						</dependency>
 					</dependencies>
+					<configuration>
+						<configLocation>google_checks.xml</configLocation>
+						<suppressionsLocation>supressions_checkstyle.xml</suppressionsLocation>
+						<inputEncoding>UTF-8</inputEncoding>
+						<failsOnError>true</failsOnError>
+						<consoleOutput>true</consoleOutput>
+						<violationSeverity>error</violationSeverity>
+					</configuration>
 					<executions>
 						<execution>
 							<id>google-checkstyle</id>
@@ -95,14 +104,6 @@
 							<goals>
 								<goal>check</goal>
 							</goals>
-							<configuration>
-								<configLocation>google_checks.xml</configLocation>
-								<suppressionsLocation>supressions.xml</suppressionsLocation>
-								<inputEncoding>UTF-8</inputEncoding>
-								<failsOnError>true</failsOnError>
-								<consoleOutput>true</consoleOutput>
-								<violationSeverity>error</violationSeverity>
-							</configuration>
 						</execution>
 					</executions>
 				</plugin>
