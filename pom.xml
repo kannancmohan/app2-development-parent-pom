@@ -192,6 +192,7 @@
                   <argument>${basedir}/.git/hooks/commit-msg</argument>
                   <argument>${basedir}/.git/hooks/pre-commit</argument>
                 </arguments>
+                <skip>${os.detected.classifier:windows}</skip>
               </configuration>
             </execution>
           </executions>
@@ -331,7 +332,7 @@
         <executions>
           <execution>
             <id>make-hooks-executable</id>
-            <phase>generate-sources</phase>
+            <phase>package</phase>
           </execution>
         </executions>
       </plugin>
