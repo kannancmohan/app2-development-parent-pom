@@ -1,7 +1,5 @@
 #!/bin/sh
-#
-# Pre-commit hook to run Checkstyle
-#
+
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 info_message() {
@@ -14,17 +12,17 @@ if git diff --cached --quiet; then
     exit 0
 fi
 
-# Run Checkstyle
-mvn checkstyle:check
+# Run style check
+./mvnw spotless:check
 
-# Capture the result of the Checkstyle run
+# Capture the result of the style check
 RESULT=$?
 
-# If Checkstyle failed, do not commit
+# If style check failed, do not commit
 if [ $RESULT -ne 0 ]; then
     echo "Checkstyle failed. Please fix the issues before committing."
     exit 1
 fi
 
-# Allow the commit if Checkstyle passed
+# Allow the commit if style check passed
 exit 0
