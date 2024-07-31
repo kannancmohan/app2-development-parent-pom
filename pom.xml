@@ -61,7 +61,8 @@
         <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
       </dependency>
-      <!-- use this springdoc-openapi if you dont want swagger-ui and only generate the API info in JSON & YAML formats -->
+      <!-- use this springdoc-openapi if you dont want swagger-ui and only generate the API info in
+      JSON & YAML formats -->
       <dependency>
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
@@ -126,7 +127,8 @@
             <java>
               <googleJavaFormat>
                 <!-- google.github.io/styleguide/javaguide.html#s1-introduction -->
-                <!-- github.com/diffplug/spotless/tree/aa1a6665ef08b7c93bfa3fd745ecb67b0631771a/plugin-maven#java -->
+                <!--
+                github.com/diffplug/spotless/tree/aa1a6665ef08b7c93bfa3fd745ecb67b0631771a/plugin-maven#java -->
                 <version>${google-java-format.version}</version>
                 <style>GOOGLE</style>
                 <!-- Optional, available versions: GOOGLE, AOSP -->
@@ -137,9 +139,11 @@
           </configuration>
           <executions>
             <execution>
+              <id>spotless-check</id>
               <goals>
                 <goal>check</goal>
               </goals>
+              <phase>none</phase>
             </execution>
           </executions>
         </plugin>
@@ -304,6 +308,12 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>spotless-check</id>
+            <phase>validate</phase>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -321,7 +331,7 @@
         <executions>
           <execution>
             <id>make-hooks-executable</id>
-            <phase>process-resources</phase>
+            <phase>generate-sources</phase>
           </execution>
         </executions>
       </plugin>
