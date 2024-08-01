@@ -39,7 +39,7 @@
     <generate-openapi-server-code.reactive>false</generate-openapi-server-code.reactive>
     <generate-openapi-server-code.skip>false</generate-openapi-server-code.skip>
     <generate-openapi-client-code.skip>false</generate-openapi-client-code.skip>
-    <generate-openapi-client-code.library>resttemplate</generate-openapi-client-code.library>
+    <generate-openapi-client-code.library>restclient</generate-openapi-client-code.library>
     <generate-openapi-client-code.inputSpec>${project.basedir}/src/main/resources/static/openapi/openapi.yaml</generate-openapi-client-code.inputSpec>
   </properties>
 
