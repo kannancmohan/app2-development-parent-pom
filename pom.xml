@@ -301,6 +301,14 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <!-- added to generate build-info.properties which is used by spring-actuator to populate endpoint '/actuator/info'  -->
+            <execution>
+              <goals>
+                <goal>build-info</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
