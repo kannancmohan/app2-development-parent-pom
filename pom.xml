@@ -340,7 +340,7 @@
         <executions>
           <execution>
             <id>make-hooks-executable</id>
-            <phase>package</phase>
+            <phase>generate-sources</phase>
           </execution>
         </executions>
       </plugin>
