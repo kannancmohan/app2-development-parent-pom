@@ -353,12 +353,6 @@
   <profiles>
     <profile>
       <id>jkube-build-push</id>
-      <activation>
-        <property>
-          <name>activate-jkube-build-push</name>
-          <value>true</value>
-        </property>
-      </activation>
       <properties>
         <jkube.docker.username>kannan2024</jkube.docker.username>
         <jkube.base.image>amazoncorretto:21-alpine3.20</jkube.base.image>
