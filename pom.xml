@@ -44,8 +44,6 @@
     <generate-openapi-client-code.skip>false</generate-openapi-client-code.skip>
     <generate-openapi-client-code.library>restclient</generate-openapi-client-code.library>
     <generate-openapi-client-code.inputSpec>${project.basedir}/src/main/resources/static/openapi/openapi.yaml</generate-openapi-client-code.inputSpec>
-    <jkube.docker.username>kannan2024</jkube.docker.username>
-    <jkube.base.image>amazoncorretto:21-alpine3.20</jkube.base.image>
     <!-- custom properties -->
   </properties>
 
@@ -303,44 +301,6 @@
             </execution>
           </executions>
         </plugin>
-        <!-- jkube for generating container image and pushing it to registry -->
-        <plugin>
-          <groupId>org.eclipse.jkube</groupId>
-          <artifactId>kubernetes-maven-plugin</artifactId>
-          <version>${kubernetes-maven-plugin.version}</version>
-          <configuration>
-            <buildStrategy>jib</buildStrategy>
-            <resources>
-              <imagePullPolicy>Always</imagePullPolicy>
-            </resources>
-            <images>
-              <image>
-                <name>${jkube.docker.username}/${project.artifactId}:${project.version}</name>
-                <alias>${project.artifactId}</alias>
-                <build>
-                  <from>${jkube.base.image}</from>
-                  <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
-                  <tags>
-                    <tag>${project.version}</tag>
-                    <tag>latest</tag>
-                  </tags>
-                </build>
-              </image>
-            </images>
-          </configuration>
-          <executions>
-            <execution>
-              <id>jkube-build-push</id>
-              <goals>
-                <!-- <goal>resource</goal>
-                <goal>helm</goal> -->
-                <goal>build</goal>
-                <goal>push</goal>
-              </goals>
-              <phase>package</phase>
-            </execution>
-          </executions>
-        </plugin>
         <!-- springboot -->
         <plugin>
           <groupId>org.springframework.boot</groupId>
@@ -390,5 +350,59 @@
       </plugin>
     </plugins>
   </build>
-
+  <profiles>
+    <profile>
+      <id>jkube-build-push</id>
+      <activation>
+        <property>
+          <name>activate-jkube-build-push</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <properties>
+        <jkube.docker.username>kannan2024</jkube.docker.username>
+        <jkube.base.image>amazoncorretto:21-alpine3.20</jkube.base.image>
+      </properties>
+      <build>
+        <plugins>
+          <!-- jkube for generating container image and pushing it to registry -->
+          <plugin>
+            <groupId>org.eclipse.jkube</groupId>
+            <artifactId>kubernetes-maven-plugin</artifactId>
+            <version>${kubernetes-maven-plugin.version}</version>
+            <configuration>
+              <buildStrategy>jib</buildStrategy>
+              <resources>
+                <imagePullPolicy>Always</imagePullPolicy>
+              </resources>
+              <images>
+                <image>
+                  <name>${jkube.docker.username}/${project.artifactId}:${project.version}</name>
+                  <alias>${project.artifactId}</alias>
+                  <build>
+                    <from>${jkube.base.image}</from>
+                    <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                    <tags>
+                      <tag>${project.version}</tag>
+                      <tag>latest</tag>
+                    </tags>
+                  </build>
+                </image>
+              </images>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jkube-build-push</id>
+                <goals>
+                  <goal>build</goal>
+                  <goal>push</goal>
+                </goals>
+                <!-- <phase>package</phase> -->
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
