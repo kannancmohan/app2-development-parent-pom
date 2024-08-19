@@ -301,6 +301,14 @@
             </execution>
           </executions>
         </plugin>
+        <!-- SBOM generation using cyclonedx -->
+        <plugin>
+          <groupId>org.cyclonedx</groupId>
+          <artifactId>cyclonedx-maven-plugin</artifactId>
+          <configuration>
+            <verbose>false</verbose>
+          </configuration>
+        </plugin>
         <!-- springboot -->
         <plugin>
           <groupId>org.springframework.boot</groupId>
@@ -318,6 +326,10 @@
     </pluginManagement>
     <!-- Add plugins that needs to be executed automatically by child project -->
     <plugins>
+      <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
