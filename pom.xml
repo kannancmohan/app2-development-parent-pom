@@ -315,6 +315,7 @@
           <groupId>org.cyclonedx</groupId>
           <artifactId>cyclonedx-maven-plugin</artifactId>
           <configuration>
+            <skip>${sbom.cyclonedx.skip}</skip>
             <verbose>false</verbose>
           </configuration>
         </plugin>
