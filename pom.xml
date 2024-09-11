@@ -28,6 +28,7 @@
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
     <swagger-annotations.version>2.2.22</swagger-annotations.version>
     <spring-cloud-dependencies.version>2023.0.3</spring-cloud-dependencies.version>
+    <opentelemetry-instrumentation-bom.version>2.7.0-alpha</opentelemetry-instrumentation-bom.version>
     <!-- plugins versions-->
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
@@ -55,6 +56,14 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
         <version>${spring-cloud-dependencies.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <!-- opentelemetry-instrumentation BOM -->
+      <dependency>
+        <groupId>io.opentelemetry.instrumentation</groupId>
+        <artifactId>opentelemetry-instrumentation-bom-alpha</artifactId>
+        <version>${opentelemetry-instrumentation-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
