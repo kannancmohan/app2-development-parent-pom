@@ -29,6 +29,7 @@
     <swagger-annotations.version>2.2.22</swagger-annotations.version>
     <spring-cloud-dependencies.version>2023.0.3</spring-cloud-dependencies.version>
     <opentelemetry-instrumentation-bom.version>2.7.0-alpha</opentelemetry-instrumentation-bom.version>
+    <io.jsonwebtoken.version>0.12.6</io.jsonwebtoken.version>
     <!-- plugins versions-->
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
     <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
@@ -105,6 +106,22 @@
         <groupId>io.swagger.core.v3</groupId>
         <artifactId>swagger-annotations</artifactId>
         <version>${swagger-annotations.version}</version>
+      </dependency>
+      <!-- library for creating jwt(tokens), jwks etc -->
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-api</artifactId>
+        <version>${io.jsonwebtoken.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>${io.jsonwebtoken.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId>
+        <version>${io.jsonwebtoken.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
